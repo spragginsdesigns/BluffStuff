@@ -35,23 +35,29 @@ export const metadata: Metadata = {
 	manifest: "/site.webmanifest",
 	metadataBase: new URL("https://www.woodwardbluffsactivities.com"),
 	openGraph: {
-		type: "website",
 		title: "Woodward Bluffs Mobile Home Park Activities Committee",
 		description:
 			"Join us for community events and activities at Woodward Bluffs Mobile Home Park",
+		url: "https://bluffstuff.vercel.app/",
 		siteName: "Woodward Bluffs Activities",
 		images: [
 			{
-				url: "/og-image.jpg"
+				url: "https://opengraph.b-cdn.net/production/images/d4f057e8-d380-4c20-b7f2-eb7cfa9a9829.jpg?token=QtP06HYSWJCx816f5EeTMbirREVrw-fZuZQUw4t96CM&height=836&width=1200&expires=33259069873",
+				width: 1200,
+				height: 836
 			}
-		]
+		],
+		locale: "en_US",
+		type: "website"
 	},
 	twitter: {
 		card: "summary_large_image",
-		title: "Woodward Bluffs Mobile Home Park Activities",
+		title: "Woodward Bluffs Mobile Home Park Activities Committee",
 		description:
 			"Join us for community events and activities at Woodward Bluffs Mobile Home Park",
-		images: ["/twitter-image.jpg"]
+		images: [
+			"https://opengraph.b-cdn.net/production/images/d4f057e8-d380-4c20-b7f2-eb7cfa9a9829.jpg?token=QtP06HYSWJCx816f5EeTMbirREVrw-fZuZQUw4t96CM&height=836&width=1200&expires=33259069873"
+		]
 	}
 };
 
