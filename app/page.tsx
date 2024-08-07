@@ -1,0 +1,111 @@
+import EventCard from "./components/EventCard";
+import ActivityCard from "./components/ActivityCard";
+import Hero from "./components/Hero";
+
+export default function Home() {
+	const events = [
+		{
+			title: "Raffle and Dinner Event",
+			date: "August 31, 2024",
+			description:
+				"Join us for a lasagna dinner and exciting raffle! $5 per person, including one free raffle ticket.",
+			imageSrc: "/Images/Activities-Images/raffledinnernight.webp"
+		},
+		{
+			title: "Taco Tuesday",
+			date: "September 17, 2024",
+			description: "Enjoy delicious tacos with your neighbors!",
+			imageSrc: "/Images/Activities-Images/taco-tuesday-flyer1.jpg"
+		},
+		{
+			title: "Vegan Dinner",
+			date: "September 28, 2024",
+			description: "A special dinner featuring delicious vegan options.",
+			imageSrc: "/Images/Activities-Images/vegan-dinner.webp"
+		}
+	];
+
+	const activities = [
+		{
+			title: "Soup Cook-off",
+			description:
+				"Join our Oktoberfest-themed Soup Cook-off on October 26, 2024. Showcase your best soup recipe!",
+			imageSrc: "/Images/Activities-Images/soupcookoff.webp"
+		},
+		{
+			title: "Thanksgiving Dinner",
+			description:
+				"Celebrate Thanksgiving with your Woodward Bluffs community on November 23, 2024.",
+			imageSrc: "/Images/Activities-Images/thanksgiving-dinner24.webp"
+		}
+	];
+
+	return (
+		<>
+			<Hero />
+			<section className="mb-16">
+				<h2 className="text-3xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+					Upcoming Events
+				</h2>
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+					{events.map((event, index) => (
+						<EventCard key={index} {...event} />
+					))}
+				</div>
+			</section>
+
+			<section className="mb-16">
+				<h2 className="text-3xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500">
+					Activities Highlights
+				</h2>
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+					{activities.map((activity, index) => (
+						<ActivityCard key={index} {...activity} />
+					))}
+				</div>
+			</section>
+
+			<section className="mb-16">
+				<h2 className="text-3xl font-bold mb-8 text-primary">Community News</h2>
+				<div className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-lg shadow-xl">
+					<h3 className="text-2xl font-semibold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+						August 31st Raffle and Dinner Event
+					</h3>
+					<ul className="list-none space-y-4 text-gray-300 mb-8">
+						{[
+							"Lasagna dinner (including vegan option) for $5 per person",
+							"Raffle tickets: $1 each or 6 for $5",
+							"Family package: $25 for 4 dinners and 15 tickets",
+							"Silent auction style raffle with exciting prizes"
+						].map((item, index) => (
+							<li key={index} className="flex items-start">
+								<svg
+									className="w-6 h-6 text-green-500 mr-2 flex-shrink-0"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+									/>
+								</svg>
+								<span>{item}</span>
+							</li>
+						))}
+					</ul>
+					<p className="text-gray-400 mb-8">
+						Don&apos;t miss out on this unforgettable event! Join us for a night
+						of fun, food, and raffle prizes.
+					</p>
+					<button className="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg">
+						Learn More
+					</button>
+				</div>
+			</section>
+		</>
+	);
+}
