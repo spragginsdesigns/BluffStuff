@@ -1,0 +1,21 @@
+{
+  "name": "Bluff Stuff",
+  "short_name": "Bluff Stuff",
+  "description": "Community events and activities for Woodward Bluffs Mobile Home Park",
+  "start_url": "https://bluffstuff.vercel.app/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#4a8e3c",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

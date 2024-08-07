@@ -3,6 +3,7 @@ import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import { Metadata } from "next";
+import Head from "next/head";
 
 export const metadata: Metadata = {
 	title: "Woodward Bluffs Mobile Home Park Activities Committee",
@@ -16,7 +17,6 @@ export const metadata: Metadata = {
 		"Neighborhood"
 	],
 	authors: [{ name: "Woodward Bluffs Activities Committee" }],
-	colorScheme: "dark",
 	creator: "Woodward Bluffs Activities Committee",
 	publisher: "Woodward Bluffs Mobile Home Park",
 	formatDetection: {
@@ -33,9 +33,9 @@ export const metadata: Metadata = {
 		apple: [{ url: "/apple-touch-icon.png" }]
 	},
 	manifest: "/site.webmanifest",
+	metadataBase: new URL("https://www.woodwardbluffsactivities.com"),
 	openGraph: {
 		type: "website",
-		url: "https://www.woodwardbluffsactivities.com",
 		title: "Woodward Bluffs Mobile Home Park Activities Committee",
 		description:
 			"Join us for community events and activities at Woodward Bluffs Mobile Home Park",
@@ -53,6 +53,10 @@ export const metadata: Metadata = {
 			"Join us for community events and activities at Woodward Bluffs Mobile Home Park",
 		images: ["/twitter-image.jpg"]
 	}
+};
+
+export const viewport = {
+	colorScheme: "dark"
 };
 
 export default function RootLayout({

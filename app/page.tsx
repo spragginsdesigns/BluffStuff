@@ -9,19 +9,22 @@ export default function Home() {
 			date: "August 31, 2024",
 			description:
 				"Join us for a lasagna dinner and exciting raffle! $5 per person, including one free raffle ticket.",
-			imageSrc: "/Images/Activities-Images/raffledinnernight.webp"
+			imageSrc:
+				"https://utfs.io/f/664e02e5-68df-4a04-abd8-310ecd5eed98-e8fh8e.webp"
 		},
 		{
 			title: "Taco Tuesday",
 			date: "September 17, 2024",
 			description: "Enjoy delicious tacos with your neighbors!",
-			imageSrc: "/Images/Activities-Images/taco-tuesday-flyer1.jpg"
+			imageSrc:
+				"https://utfs.io/f/6a4dbf43-4544-4148-9ad6-3567ca03833c-vw0but.jpg"
 		},
 		{
 			title: "Vegan Dinner",
 			date: "September 28, 2024",
 			description: "A special dinner featuring delicious vegan options.",
-			imageSrc: "/Images/Activities-Images/vegan-dinner.webp"
+			imageSrc:
+				"https://utfs.io/f/ad2ae982-d502-4225-abe7-92a864d14f75-r1b9fe.webp"
 		}
 	];
 
@@ -30,13 +33,15 @@ export default function Home() {
 			title: "Soup Cook-off",
 			description:
 				"Join our Oktoberfest-themed Soup Cook-off on October 26, 2024. Showcase your best soup recipe!",
-			imageSrc: "/Images/Activities-Images/soupcookoff.webp"
+			imageSrc:
+				"https://utfs.io/f/34fb3fee-eaca-4a08-84a5-c768e0ebcf3d-gyk9jk.webp"
 		},
 		{
 			title: "Thanksgiving Dinner",
 			description:
 				"Celebrate Thanksgiving with your Woodward Bluffs community on November 23, 2024.",
-			imageSrc: "/Images/Activities-Images/thanksgiving-dinner24.webp"
+			imageSrc:
+				"https://utfs.io/f/f028f756-7d05-4b80-b318-9b22c11e6296-z3puwa.webp"
 		}
 	];
 
