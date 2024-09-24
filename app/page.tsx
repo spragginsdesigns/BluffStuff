@@ -1,32 +1,23 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import EventCard from "./components/EventCard";
 import ActivityCard from "./components/ActivityCard";
 import Hero from "./components/Hero";
+import { Event } from "../types/Event";
+import { getUpcomingEvents } from "./utils/getEvents";
 
 export default function Home() {
-	const events = [
-		{
-			title: "Raffle and Dinner Event",
-			date: "August 31, 2024",
-			description:
-				"Join us for a lasagna dinner and exciting raffle! $5 per person, including one free raffle ticket.",
-			imageSrc:
-				"https://utfs.io/f/664e02e5-68df-4a04-abd8-310ecd5eed98-e8fh8e.webp"
-		},
-		{
-			title: "Taco Tuesday",
-			date: "September 17, 2024",
-			description: "Enjoy delicious tacos with your neighbors!",
-			imageSrc:
-				"https://utfs.io/f/6a4dbf43-4544-4148-9ad6-3567ca03833c-vw0but.jpg"
-		},
-		{
-			title: "Vegan Dinner",
-			date: "September 28, 2024",
-			description: "A special dinner featuring delicious vegan options.",
-			imageSrc:
-				"https://utfs.io/f/ad2ae982-d502-4225-abe7-92a864d14f75-r1b9fe.webp"
-		}
-	];
+	const [events, setEvents] = useState<Event[]>([]);
+
+	useEffect(() => {
+		const fetchEvents = async () => {
+			const upcomingEvents = await getUpcomingEvents();
+			setEvents(upcomingEvents);
+		};
+
+		fetchEvents();
+	}, []);
 
 	const activities = [
 		{
@@ -39,7 +30,7 @@ export default function Home() {
 		{
 			title: "Thanksgiving Dinner",
 			description:
-				"Celebrate Thanksgiving with your Woodward Bluffs community on November 23, 2024.",
+				"Celebrate Thanksgiving with a community dinner. Bring your favorite dish to share!",
 			imageSrc:
 				"https://utfs.io/f/f028f756-7d05-4b80-b318-9b22c11e6296-z3puwa.webp"
 		}

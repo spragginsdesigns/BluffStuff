@@ -1,19 +1,14 @@
-// app/components/EventCard.tsx
+import React, { useState } from "react";
 import Image from "next/image";
 import {
 	CalendarIcon,
 	ClockIcon,
 	MapPinIcon
 } from "@heroicons/react/24/outline";
+import { Event } from "../../types/Event";
+import RsvpModal from "./RsvpModal";
 
-interface EventCardProps {
-	title: string;
-	date: string;
-	description: string;
-	imageSrc: string;
-	time?: string;
-	location?: string;
-}
+interface EventCardProps extends Event {}
 
 export default function EventCard({
 	title,
@@ -21,8 +16,24 @@ export default function EventCard({
 	description,
 	imageSrc,
 	time,
-	location
+	location,
+	attendees
 }: EventCardProps) {
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [showAttendees, setShowAttendees] = useState(false);
+
+	const handleRsvpClick = () => {
+		setIsModalOpen(true);
+	};
+
+	const handleCloseModal = () => {
+		setIsModalOpen(false);
+	};
+
+	const handleToggleAttendees = () => {
+		setShowAttendees(!showAttendees);
+	};
+
 	return (
 		<div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
 			<div className="relative h-48 w-full">
@@ -56,10 +67,35 @@ export default function EventCard({
 					</div>
 				)}
 				<p className="text-gray-400 mt-4">{description}</p>
-				<button className="mt-6 bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300 ease-in-out transform hover:scale-105">
-					Learn More
+				<button
+					onClick={handleRsvpClick}
+					className="mt-6 bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300 ease-in-out transform hover:scale-105"
+				>
+					RSVP
 				</button>
+				{attendees.length > 0 && (
+					<div className="mt-4">
+						<button
+							onClick={handleToggleAttendees}
+							className="text-blue-400 hover:underline"
+						>
+							{showAttendees ? "Hide Attendees" : "Show Attendees"}
+						</button>
+						{showAttendees && (
+							<ul className="mt-2 text-gray-300">
+								{attendees.map((attendee) => (
+									<li key={attendee.id}>
+										{attendee.name} {attendee.notes && ` - ${attendee.notes}`}
+									</li>
+								))}
+							</ul>
+						)}
+					</div>
+				)}
 			</div>
+			{isModalOpen && (
+				<RsvpModal eventTitle={title} onClose={handleCloseModal} />
+			)}
 		</div>
 	);
 }
