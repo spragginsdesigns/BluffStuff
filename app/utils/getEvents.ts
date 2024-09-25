@@ -3,6 +3,7 @@ import { Event } from "../../types/Event";
 export const getUpcomingEvents = async (): Promise<Event[]> => {
 	const initialEvents: Omit<Event, "attendees">[] = [
 		{
+			id: "1",
 			title: "Vegan Dinner",
 			date: "September 28, 2024",
 			description: "A special dinner featuring delicious vegan options.",
