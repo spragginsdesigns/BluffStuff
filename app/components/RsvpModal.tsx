@@ -36,7 +36,7 @@ export default function RsvpModal({ eventTitle, onClose }: RsvpModalProps) {
 
 			if (response.ok) {
 				// Trigger reminders if selected
-				if (selectedReminders.length > 0) {
+				if (selectedReminders.includes("email")) {
 					await fetch("/api/sendReminders", {
 						method: "POST",
 						headers: {
@@ -44,7 +44,6 @@ export default function RsvpModal({ eventTitle, onClose }: RsvpModalProps) {
 						},
 						body: JSON.stringify({
 							email,
-							phoneNumber,
 							message: `Reminder: You have RSVP'd for ${eventTitle}. We look forward to seeing you!`
 						})
 					});
@@ -132,17 +131,7 @@ export default function RsvpModal({ eventTitle, onClose }: RsvpModalProps) {
 									onChange={() => handleReminderChange("email")}
 									className="mr-2"
 								/>
-								Email
-							</label>
-							<label className="text-gray-300">
-								<input
-									type="checkbox"
-									value="sms"
-									checked={selectedReminders.includes("sms")}
-									onChange={() => handleReminderChange("sms")}
-									className="mr-2"
-								/>
-								SMS
+								Email Reminder
 							</label>
 						</div>
 					</div>

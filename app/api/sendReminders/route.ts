@@ -1,55 +1,43 @@
 import { NextRequest, NextResponse } from "next/server";
-import twilio from "twilio";
-import sendgrid from "@sendgrid/mail";
+import nodemailer from "nodemailer";
 
-sendgrid.setApiKey(process.env.SENDGRID_API_KEY!);
-
-const twilioClient = twilio(
-	process.env.TWILIO_ACCOUNT_SID!,
-	process.env.TWILIO_AUTH_TOKEN!
-);
+const transporter = nodemailer.createTransport({
+	service: "gmail",
+	auth: {
+		user: process.env.GMAIL_USER,
+		pass: process.env.GMAIL_APP_PASSWORD
+	}
+});
 
 export async function POST(request: NextRequest) {
 	try {
-		const { email, phoneNumber, message } = await request.json();
+		const { email, message } = await request.json();
 
-		if (!email && !phoneNumber) {
+		if (!email) {
 			return NextResponse.json(
-				{ success: false, error: "At least one contact method is required." },
+				{ success: false, error: "Email is required." },
 				{ status: 400 }
 			);
 		}
 
-		const tasks = [];
+		const mailOptions = {
+			from: process.env.GMAIL_USER,
+			to: email,
+			subject: "Event Reminder",
+			text: message
+		};
 
-		if (email) {
-			tasks.push(
-				sendgrid.send({
-					to: email,
-					from: "no-reply@bluffstuff.com",
-					subject: "Event Reminder",
-					text: message
-				})
-			);
+		const info = await transporter.sendMail(mailOptions);
+
+		if (info.accepted.length > 0) {
+			return NextResponse.json({ success: true }, { status: 200 });
+		} else {
+			throw new Error("Failed to send email");
 		}
-
-		if (phoneNumber) {
-			tasks.push(
-				twilioClient.messages.create({
-					body: message,
-					from: process.env.TWILIO_PHONE_NUMBER!,
-					to: phoneNumber
-				})
-			);
-		}
-
-		await Promise.all(tasks);
-
-		return NextResponse.json({ success: true }, { status: 200 });
 	} catch (error) {
-		console.error("Error sending reminders:", error);
+		console.error("Error sending reminder:", error);
 		return NextResponse.json(
-			{ success: false, error: "Failed to send reminders." },
+			{ success: false, error: "Failed to send reminder." },
 			{ status: 500 }
 		);
 	}
