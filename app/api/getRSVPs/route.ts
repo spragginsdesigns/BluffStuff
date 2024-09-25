@@ -1,12 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
+import { sql } from "@vercel/postgres";
 
 export async function GET(request: NextRequest) {
 	try {
-		const filePath = path.join(process.cwd(), "data", "rsvps.json");
-		const fileData = await fs.readFile(filePath, "utf-8");
-		const rsvps = JSON.parse(fileData);
+		const { rows } = await sql`SELECT * FROM rsvps ORDER BY created_at DESC`;
+
+		const rsvps = rows.reduce((acc, row) => {
+			if (!acc[row.event_title]) {
+				acc[row.event_title] = [];
+			}
+			acc[row.event_title].push({
+				id: row.id,
+				name: row.name,
+				email: row.email,
+				phoneNumber: row.phone_number,
+				notes: row.notes
+			});
+			return acc;
+		}, {});
+
 		return NextResponse.json(rsvps, { status: 200 });
 	} catch (error) {
 		console.error("Error reading RSVPs:", error);
