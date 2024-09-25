@@ -4,6 +4,10 @@ import { Attendee } from "../../../types/Event";
 import { promises as fs } from "fs";
 import path from "path";
 
+interface RSVPData {
+	[eventTitle: string]: Attendee[];
+}
+
 export async function POST(request: NextRequest) {
 	try {
 		const { eventTitle, name, email, phoneNumber, notes } =
@@ -24,9 +28,18 @@ export async function POST(request: NextRequest) {
 			notes
 		};
 
+		// Use a more flexible path for file storage
 		const filePath = path.join(process.cwd(), "data", "rsvps.json");
-		const fileData = await fs.readFile(filePath, "utf-8");
-		const rsvps = JSON.parse(fileData);
+
+		let rsvps: RSVPData = {};
+		try {
+			const fileData = await fs.readFile(filePath, "utf-8");
+			rsvps = JSON.parse(fileData) as RSVPData;
+		} catch (error) {
+			console.error("Error reading RSVP file:", error);
+			// If file doesn't exist or is empty, start with an empty object
+			rsvps = {};
+		}
 
 		if (!rsvps[eventTitle]) {
 			rsvps[eventTitle] = [];
@@ -40,7 +53,10 @@ export async function POST(request: NextRequest) {
 	} catch (error) {
 		console.error("Error saving RSVP:", error);
 		return NextResponse.json(
-			{ success: false, error: "Failed to save RSVP." },
+			{
+				success: false,
+				error: "Failed to save RSVP. " + (error as Error).message
+			},
 			{ status: 500 }
 		);
 	}

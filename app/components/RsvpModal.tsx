@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	generateGoogleCalendarLink,
 	generateICalendarLink
@@ -15,6 +15,13 @@ export default function RsvpModal({ eventTitle, onClose }: RsvpModalProps) {
 	const [phoneNumber, setPhoneNumber] = useState("");
 	const [notes, setNotes] = useState("");
 	const [selectedReminders, setSelectedReminders] = useState<string[]>([]);
+
+	useEffect(() => {
+		document.body.style.overflow = "hidden";
+		return () => {
+			document.body.style.overflow = "unset";
+		};
+	}, []);
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -35,7 +42,6 @@ export default function RsvpModal({ eventTitle, onClose }: RsvpModalProps) {
 			});
 
 			if (response.ok) {
-				// Trigger reminders if selected
 				if (selectedReminders.includes("email")) {
 					await fetch("/api/sendReminders", {
 						method: "POST",
@@ -70,14 +76,14 @@ export default function RsvpModal({ eventTitle, onClose }: RsvpModalProps) {
 
 	const eventDetails = {
 		title: eventTitle,
-		date: "August 31, 2024", // Replace with actual event date dynamically if available
-		description: "Description of the event.", // Replace with actual description dynamically
-		location: "Event Location" // Replace with actual location dynamically
+		date: "August 31, 2024",
+		description: "Description of the event.",
+		location: "Event Location"
 	};
 
 	return (
-		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-			<div className="bg-gray-800 p-6 rounded-lg w-full max-w-md">
+		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
+			<div className="bg-gray-800 p-6 rounded-lg w-full max-w-md m-4">
 				<h2 className="text-2xl font-bold mb-4 text-white">
 					RSVP for {eventTitle}
 				</h2>
