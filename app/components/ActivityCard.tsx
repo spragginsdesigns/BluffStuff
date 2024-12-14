@@ -18,7 +18,7 @@ export default function ActivityCard({
 	participants
 }: ActivityCardProps) {
 	return (
-		<div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+		<div className="bg-gray-900/5 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
 			<div className="relative h-48 w-full">
 				<Image
 					src={imageSrc}

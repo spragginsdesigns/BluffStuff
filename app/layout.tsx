@@ -3,7 +3,8 @@ import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import { Metadata } from "next";
-import Head from "next/head";
+import { ClerkProvider } from "@clerk/nextjs";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
 	title: "Woodward Bluffs Mobile Home Park Activities Committee",
@@ -72,16 +73,18 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body className="flex flex-col min-h-screen bg-background text-white">
-				<header className="fixed w-full top-0 z-50">
-					<NavBar />
-				</header>
-				<main className="flex-grow mt-16">
-					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-						{children}
-					</div>
-				</main>
-				<Footer />
+			<body className="flex flex-col min-h-screen bg-[#131111] text-white">
+				<Providers>
+					<header className="fixed w-full top-0 z-50">
+						<NavBar />
+					</header>
+					<main className="flex-grow mt-16">
+						<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+							{children}
+						</div>
+					</main>
+					<Footer />
+				</Providers>
 			</body>
 		</html>
 	);
